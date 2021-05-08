@@ -9,8 +9,8 @@ public class IOClass {
         ArrayList<String> lines = new ArrayList<>();
         String line = "";
         while((line = bufr.readLine()) != null){
-            if(line.trim() != null){
-                lines.add(line);
+            if(line.trim() != null && line.trim().length() > 0){
+                lines.add(line.trim());
             }
         }
         return lines;

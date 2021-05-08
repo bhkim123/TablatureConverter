@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 public class Validation {
     final static int NUM_OF_GUITAR_STRING = 6;
+
     public static ArrayList<String> validLines(ArrayList<String> allLines) throws UnvalidNumberOfLinesException {
         if(allLines.size() == 0){
             return null;
@@ -14,30 +15,21 @@ public class Validation {
 
         ArrayList<String> resultLines = new ArrayList<>();
         int count = 0;
-
         String str = allLines.get(count);
+
         while(count < allLines.size()){
-            int tempCount = count;
-            while(str.contains("-") && str.contains("|") && !str.contains(" ") && str.length() >= 3){
-                tempCount++;
-                str = allLines.get(tempCount);
+            while(str.contains("-") && str.contains("|") && !str.contains(" ") && str.length() >= 3 && str != null && count < allLines.size()){
+                resultLines.add(str);
+                str = allLines.get(++count);
             }
-
-            if(tempCount == NUM_OF_GUITAR_STRING){
-                for(int i = tempCount - NUM_OF_GUITAR_STRING; i < tempCount; i++){
-                    str = allLines.get(i);
-                    resultLines.add(str);
-                }
-            }
-
-            if(tempCount > count){
-                count = tempCount;
-            }
-            else {
-                count++;
-            }
+            count++;
         }
-        return resultLines;
+        if(resultLines.size() % NUM_OF_GUITAR_STRING == 0){
+            return resultLines;
+        }
+        else{
+            throw new UnvalidNumberOfLinesException("Guitar string Number Error");
+        }
     }
 
     public static boolean isValidNotes(ArrayList<String> valindLines){

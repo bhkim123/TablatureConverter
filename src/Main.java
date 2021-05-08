@@ -14,9 +14,8 @@ public class Main {
         String path = sc.nextLine();
         ArrayList<String> lines = IOClass.textToStr(path);
         lines = Validation.validLines(lines);
-        for(String s: lines){
+        for(String s: lines)
             System.out.println(s);
-        }
         if(lines.size() !=  0){
             if(!Validation.isValidNotes(lines)){
                 try{
