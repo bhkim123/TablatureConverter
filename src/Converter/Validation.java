@@ -1,5 +1,6 @@
 package Converter;
 
+import Exceptions.NotSupportedNoteException;
 import Exceptions.UnvalidNumberOfLinesException;
 
 import java.util.ArrayList;
@@ -14,16 +15,14 @@ public class Validation {
         }
 
         ArrayList<String> resultLines = new ArrayList<>();
-        int count = 0;
-        String str = allLines.get(count);
 
-        while(count < allLines.size()){
-            while(str.contains("-") && str.contains("|") && !str.contains(" ") && str.length() >= 3 && str != null && count < allLines.size()){
+        for(int i = 0; i < allLines.size(); i++){
+            String str = allLines.get(i);
+            if(str.contains("-") && str.contains("|") && !str.contains(" ") && str.length() >= 3 && str != null){
                 resultLines.add(str);
-                str = allLines.get(++count);
             }
-            count++;
         }
+
         if(resultLines.size() % NUM_OF_GUITAR_STRING == 0){
             return resultLines;
         }
@@ -32,23 +31,14 @@ public class Validation {
         }
     }
 
-    public static boolean isValidNotes(ArrayList<String> valindLines){
-        int index = 0;
+    public static boolean isValidNotes(ArrayList<String> valindLines) throws Exception {
         for(String s: valindLines){
-            while(index < s.length()){
-                while(s.charAt(index) != '-' && s.charAt(index) != '|'){
-                    int start = index;
-                    while(s.charAt(index) != '-' && s.charAt(index) != '|'){
-                        index++;
-                    }
-                    String note = s.substring(start, index);
-                    if(!Validation.noteValidation(note)){
-                        return false;
-                    }
+            String[] splittedStrs = s.split("[-]");
+            for(String notes: splittedStrs){
+                if(!notes.equals("") && !notes.equals("|") && !notes.equals(":") && !Validation.noteValidation(notes)){
+                    throw new NotSupportedNoteException("Unrecognizable notes");
                 }
-                index++;
             }
-            index = 0;
         }
         return true;
     }
