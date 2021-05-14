@@ -26,7 +26,6 @@ public class Main {
                 }
             }
         }
-        //extract only supported information from text file
-
+        //extract only supported string information from text file
     }
 }

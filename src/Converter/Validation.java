@@ -35,7 +35,7 @@ public class Validation {
         for(String s: valindLines){
             String[] splittedStrs = s.split("[-]");
             for(String notes: splittedStrs){
-                if(!notes.equals("") && !notes.equals("|") && !notes.equals(":") && !Validation.noteValidation(notes)){
+                if(!notes.equals("") && !notes.contains("|") && !Validation.noteValidation(notes)){
                     throw new NotSupportedNoteException("Unrecognizable notes");
                 }
             }
@@ -46,7 +46,7 @@ public class Validation {
     public static boolean noteValidation(String note){
         if(Pattern.matches("[0-9]", note))
             return true;
-        else if(Pattern.matches("^[12][0-9]&", note))
+        else if(Pattern.matches("^[1-2][0-9]&", note))
             return true;
         else if(Pattern.matches("[(][12]?[0-9]?[)]", note))
             return true;
