@@ -17,6 +17,14 @@ public class Measures {
 
         ArrayList<String> storedLines = splitByLines(measureLines);
         this.lines2Darr = make2Darr(storedLines);
+        setEachMeasureNotes();
+
+        for(Notes o : eachMeasrueNotes){
+            ArrayList<String> temp = o.getCompletedNoteScript();
+            for(String script : temp){
+                scriptsPerMeasrue.add(script);
+            }
+        }
 
     }
 
