@@ -94,4 +94,23 @@ public class NoteUtility {
             return keys[(fret + 4) % 12];
         }
     }
+
+    public static String pitch(int octave, String key) {
+
+        String octaveString = "<octave>" + octave + "</octave>\n";
+        String stepString;
+        if(!key.contains("#")) {
+            stepString = "<step>" + key + "</step>\n";
+        }
+        else {
+            stepString = "<step>" + key.charAt(0) + "</step>\n"
+                    + "<alter>" + 1 + "</alter>\n";
+            //In musicxml, # is expressed as <alter>1</alter>
+        }
+
+        return "<pitch>\n"
+                + stepString
+                + octaveString
+                + "</pitch>\n";
+    }
 }
