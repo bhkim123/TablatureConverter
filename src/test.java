@@ -20,7 +20,7 @@ public class test {
                 "|-----------------------|---2-------------------|---3-------------------|------------------------------|\n" +
                 "|---3-------------------|-----------------------|-----------------------|---3---------------2----------|\n";
         Measures aa = new Measures(text);
-        for(String ae : aa.getScriptsPerMeasure()){
+        for(String ae : aa.getScriptsPerMeasrue()){
             System.out.println(ae);
         }
     }

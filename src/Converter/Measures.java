@@ -12,17 +12,27 @@ public class Measures {
     public Measures(String measureInfo){
         this.measureInfo = measureInfo;
         this.eachMeasureNotes = new ArrayList<>();
-        this.scriptsPerMeasure = new ArrayList<String>();
+        this.scriptsPerMeasure = new ArrayList<>();
 
         ArrayList<String> storedLines = splitByLines(this.measureInfo);
         this.lines2Darr = make2Darr(storedLines);
         setEachMeasureNotes();
-        for(Notes o : eachMeasureNotes) {
-            ArrayList<String> temp = o.getCompletedNoteScript();
-            for(String script : temp){
-                scriptsPerMeasure.add(script);
+        for(int j = 0; j < eachMeasureNotes.size(); j++) {
+            ArrayList<String> temp = eachMeasureNotes.get(j).getCompletedNoteScript();
+            String script = "";
+            for(int i = 0; i < temp.size(); i++){
+                script += temp.get(i);
             }
+            if(j == 0){
+                script = addAttribute(script);
+            }
+            script = addMeasureNum(script, j + 1);
+            scriptsPerMeasure.add(script);
         }
+    }
+
+    public ArrayList<String> getScriptsPerMeasrue(){
+        return this.scriptsPerMeasure;
     }
 
     private ArrayList<String> splitByLines(String measureInfo){
@@ -68,12 +78,8 @@ public class Measures {
         }
     }
 
-    public ArrayList<String> getScriptsPerMeasure(){
-        return scriptsPerMeasure;
-    }
-
-    private void addAttribute(String noteScript){
-        noteScript = "<attributes>\n" +
+    private String addAttribute(String noteScript){
+        String attribute = "<attributes>\n" +
                 "<divisions>2</divisions>\n" +
                 "<key>\n" +
                 "<fifths>0</fifths>\n" +
@@ -113,10 +119,11 @@ public class Measures {
                 "<tuning-octave>4</tuning-octave>\n" +
                 "</staff-tuning>\n" +
                 "</staff-details>\n" +
-                "</attributes>\n" + noteScript;
+                "</attributes>\n";
+        return attribute + noteScript;
     }
 
-    private void addMeasureNum(String noteScript, int measureNum){
-        noteScript = "<measure number=\"" + measureNum + "\">\n" + noteScript + "</measure>\n";
+    private String addMeasureNum(String noteScript, int measureNum){
+        return "<measure number=\"" + measureNum + "\">\n" + noteScript + "</measure>\n";
     }
 }

@@ -29,10 +29,6 @@ public class NoteScript {
             }
             makeNote(tempNotes, durationLength);
         }
-
-    }
-    public ArrayList<String> getEachNoteScript(){
-        return null;
     }
 
     private void makeNote(ArrayList<Notation> tempNotes, int durationLen){
@@ -45,7 +41,6 @@ public class NoteScript {
             }
         }
     }
-
     private void putChordScripts(Notation note , int durationLen, int index){
         int duration = (int) (((double)durationLen / (double)this.totalMeasureLength) * (double)totalDurationPerMeasure + 0.5);
         if(index == 0){
@@ -53,7 +48,7 @@ public class NoteScript {
             int singleRegularNote = Integer.valueOf(note.getNotation());
             int strNum = note.getStringNum() + 1;
             result.append("<note>\n");
-            String pitch = NoteUtility.pitch(NoteUtility.octave(strNum, singleRegularNote), NoteUtility.key(strNum, singleRegularNote));
+            String pitch = NoteUtility.pitch((NoteUtility.octave(strNum, singleRegularNote)), NoteUtility.key(strNum, singleRegularNote));
             String type = typeScript(duration);
             result.append(pitch);
             result.append("<duration>" + duration + "</duration>\n" +
@@ -74,7 +69,7 @@ public class NoteScript {
             int strNum = note.getStringNum() + 1;
             result.append("<note>\n");
             result.append("<chord/>\n");
-            String pitch = NoteUtility.pitch(NoteUtility.octave(strNum, singleRegularNote), NoteUtility.key(strNum, singleRegularNote));
+            String pitch = NoteUtility.pitch((NoteUtility.octave(strNum, singleRegularNote)), NoteUtility.key(strNum, singleRegularNote));
             String type = typeScript(duration);
             result.append(pitch);
             result.append("<duration>" + duration + "</duration>\n" +
@@ -90,7 +85,6 @@ public class NoteScript {
             eachNoteScript.add(result.toString());
         }
     }
-
     private void putScripts(Notation note , int durationLen){
         int duration = (int) (((double)durationLen / (double)this.totalMeasureLength) * (double)totalDurationPerMeasure + 0.5);
         if(note.getNotation() == null){
@@ -103,12 +97,12 @@ public class NoteScript {
                     "</note>\n";
             eachNoteScript.add(restNote);
         }
-        else if(note.getNotation().matches("[1-2]?[0-9]")){
+        else if(note.getNotation().matches("[0-9]{1,2}")){
             StringBuilder result = new StringBuilder("");
             int singleRegularNote = Integer.valueOf(note.getNotation());
             int strNum = note.getStringNum() + 1;
             result.append("<note>\n");
-            String pitch = NoteUtility.pitch(NoteUtility.octave(strNum, singleRegularNote), NoteUtility.key(strNum, singleRegularNote));
+            String pitch = NoteUtility.pitch((NoteUtility.octave(strNum, singleRegularNote)), NoteUtility.key(strNum, singleRegularNote));
             String type = typeScript(duration);
             result.append(pitch);
             result.append("<duration>" + duration + "</duration>\n" +
@@ -248,6 +242,10 @@ public class NoteScript {
         }
     }
 
+    public ArrayList<String> getEachNoteScript(){
+        return this.eachNoteScript;
+    }
+
     private String typeScript(int duration){
         StringBuilder builder = new StringBuilder("<type>");
         if(duration == 1){
@@ -279,5 +277,4 @@ public class NoteScript {
         }
         return builder.toString();
     }
-
 }
