@@ -46,7 +46,6 @@ public class Notes {
     private void putNotes(String lines, int stringNum){
         String temp = lines;
 
-        int totalLength = temp.length();
         String[] splitChar = temp.split("[-]");
         ArrayList<String> notations = new ArrayList<>();
         for(String notation : splitChar){

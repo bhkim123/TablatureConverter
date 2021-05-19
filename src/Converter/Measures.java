@@ -5,14 +5,13 @@ import java.util.ArrayList;
 public class Measures {
     protected final int STRING_NUM = 6; //number of guitar string
     protected String measureLines; //total measue lines
-    protected ArrayList<String> scriptsPerMeasrue;//each measure string
+    protected ArrayList<String> scriptsPerMeasure;//each measure string
     protected ArrayList<Notes> eachMeasrueNotes; //notes per each measure
     protected String[][] lines2Darr; // measure string to 2D array box
-    protected StringBuilder resultXML;
 
     public Measures(String lines){
         measureLines = lines;
-        scriptsPerMeasrue = new ArrayList<>();
+        scriptsPerMeasure = new ArrayList<>();
         eachMeasrueNotes = new ArrayList<>();
 
         ArrayList<String> storedLines = splitByLines(measureLines);
@@ -27,10 +26,9 @@ public class Measures {
                     addAttribute(noteScript);
                 }
                 addMeasureNum(noteScript, i + 1);
-                scriptsPerMeasrue.add(noteScript);
+                scriptsPerMeasure.add(noteScript);
             }
         }
-
     }
 
     // split string by each line
@@ -76,6 +74,10 @@ public class Measures {
             Notes notes = new Notes(eachMeasure);
             this.eachMeasrueNotes.add(notes);
         }
+    }
+
+    public ArrayList<String> getScriptsPerMeasure(){
+        return scriptsPerMeasure;
     }
 
     private void addAttribute(String noteScript){

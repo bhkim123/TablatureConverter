@@ -103,7 +103,7 @@ public class NoteScript {
                     "</note>\n";
             eachNoteScript.add(restNote);
         }
-        else if(note.getNotation().matches("[0-9]{1,2}")){
+        else if(note.getNotation().matches("[1-2]?[0-9]")){
             StringBuilder result = new StringBuilder("");
             int singleRegularNote = Integer.valueOf(note.getNotation());
             int strNum = note.getStringNum() + 1;
