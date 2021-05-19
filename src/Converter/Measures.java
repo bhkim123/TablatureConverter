@@ -3,35 +3,28 @@ package Converter;
 import java.util.ArrayList;
 
 public class Measures {
-    protected final int STRING_NUM = 6; //number of guitar string
-    protected String measureLines; //total measue lines
-    protected ArrayList<String> scriptsPerMeasure;//each measure string
-    protected ArrayList<Notes> eachMeasrueNotes; //notes per each measure
-    protected String[][] lines2Darr; // measure string to 2D array box
+    protected final int STRING_NUM = 6;
+    protected String measureInfo;
+    protected String[][] lines2Darr;
+    protected ArrayList<Notes> eachMeasureNotes;
+    protected ArrayList<String> scriptsPerMeasure;
 
-    public Measures(String lines){
-        measureLines = lines;
-        scriptsPerMeasure = new ArrayList<>();
-        eachMeasrueNotes = new ArrayList<>();
+    public Measures(String measureInfo){
+        this.measureInfo = measureInfo;
+        this.eachMeasureNotes = new ArrayList<>();
+        this.scriptsPerMeasure = new ArrayList<String>();
 
-        ArrayList<String> storedLines = splitByLines(measureLines);
+        ArrayList<String> storedLines = splitByLines(this.measureInfo);
         this.lines2Darr = make2Darr(storedLines);
         setEachMeasureNotes();
-
-        for(Notes o : eachMeasrueNotes){
+        for(Notes o : eachMeasureNotes) {
             ArrayList<String> temp = o.getCompletedNoteScript();
-            for(int i = 0; i < temp.size(); i++){
-                String noteScript = temp.get(i);
-                if(i == 0){
-                    addAttribute(noteScript);
-                }
-                addMeasureNum(noteScript, i + 1);
-                scriptsPerMeasure.add(noteScript);
+            for(String script : temp){
+                scriptsPerMeasure.add(script);
             }
         }
     }
 
-    // split string by each line
     private ArrayList<String> splitByLines(String measureInfo){
         ArrayList<String> storedLines = new ArrayList<>();
         String[] split = measureInfo.split("\n");
@@ -44,7 +37,6 @@ public class Measures {
         return storedLines;
     }
 
-    // make a 2D array look like
     private String[][] make2Darr(ArrayList<String> storedLines){
         String[][] linesByMeasure = new String[STRING_NUM][];
         for(int i = 0; i < linesByMeasure.length; i++){
@@ -72,7 +64,7 @@ public class Measures {
                 eachMeasure.add(lines2Darr[j][i]);
             }
             Notes notes = new Notes(eachMeasure);
-            this.eachMeasrueNotes.add(notes);
+            this.eachMeasureNotes.add(notes);
         }
     }
 

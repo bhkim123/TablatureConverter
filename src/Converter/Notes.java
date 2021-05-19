@@ -5,6 +5,7 @@ import java.util.Collections;
 
 public class Notes {
     protected final int BEATS = 4;
+    protected final int BEAT_TYPE = 4;
     protected final int DIVISION = 4;
     protected int totalDurationPerMeasrue;
     protected int totalMeasureLength;
@@ -46,6 +47,7 @@ public class Notes {
     private void putNotes(String lines, int stringNum){
         String temp = lines;
 
+        int totalLength = temp.length();
         String[] splitChar = temp.split("[-]");
         ArrayList<String> notations = new ArrayList<>();
         for(String notation : splitChar){
@@ -72,4 +74,17 @@ public class Notes {
             temp = builder.toString();
         }
     }
+
+    private int calculateDuration(int noteLen){
+        int duration = -1;
+        double boxIndex = (double)noteLen / (double)(this.totalMeasureLength);
+        for(int i = 1; i <= totalDurationPerMeasrue; i++){
+            if(boxIndex <= i / totalDurationPerMeasrue){
+                duration = i - 1;
+                break;
+            }
+        }
+        return duration;
+    }
 }
+
