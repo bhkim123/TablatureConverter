@@ -5,7 +5,7 @@ import java.util.Collections;
 
 public class Notes {
     protected final int BEATS = 4;
-    protected final int DIVISION = 2;
+    protected final int DIVISION = 4;
     protected int totalDurationPerMeasrue;
     protected int totalMeasureLength;
     protected ArrayList<Notation> notes;

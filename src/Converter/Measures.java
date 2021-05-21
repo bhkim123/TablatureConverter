@@ -8,11 +8,13 @@ public class Measures {
     protected String[][] lines2Darr;
     protected ArrayList<Notes> eachMeasureNotes;
     protected ArrayList<String> scriptsPerMeasure;
+    protected static int measureNum;
 
     public Measures(String measureInfo){
         this.measureInfo = measureInfo;
         this.eachMeasureNotes = new ArrayList<>();
         this.scriptsPerMeasure = new ArrayList<>();
+        Measures.measureNum = 1;
 
         ArrayList<String> storedLines = splitByLines(this.measureInfo);
         this.lines2Darr = make2Darr(storedLines);
@@ -26,7 +28,7 @@ public class Measures {
             if(j == 0){
                 script = addAttribute(script);
             }
-            script = addMeasureNum(script, j + 1);
+            script = addMeasureNum(script, measureNum++);
             scriptsPerMeasure.add(script);
         }
 
@@ -50,8 +52,6 @@ public class Measures {
     }
 
     private String[][] make2Darr(ArrayList<String> storedLines){
-        for(String a: storedLines)
-            System.out.println(a+"??");
         String[][] linesByMeasure = new String[STRING_NUM][];
         for(int i = 0; i < linesByMeasure.length; i++){
             String[] split = storedLines.get(i).split("[|]");
@@ -127,19 +127,7 @@ public class Measures {
         return attribute + noteScript;
     }
 
-    private String addMeasureNum(String noteScript, int measureNum){
+    public String addMeasureNum(String noteScript, int measureNum){
         return "<measure number=\"" + measureNum + "\">\n" + noteScript + "</measure>\n";
-    }
-
-    private String addPartAttribution(String script){
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n" +
-                "<score-partwise version=\"3.1\">\n" +
-                "<part-list>\n" +
-                "<score-part id=\"P1\">\n" +
-                "<part-name>Classical Guitar</part-name>\n" +
-                "</score-part>\n" +
-                "</part-list>\n" +
-                "<part id=\"P1\">\n" + script + "</part>\n" + "</score-partwise>\n";
     }
 }

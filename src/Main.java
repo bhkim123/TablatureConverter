@@ -1,5 +1,6 @@
 
 import Converter.Measures;
+import Converter.NoteUtility;
 import Converter.Validation;
 import Exceptions.NotSupportedNoteException;
 import Exceptions.UnvalidNumberOfLinesException;
@@ -30,17 +31,40 @@ public class Main {
         }
         //extract only supported string information from text file
 
-        for(String line: lines){
-            Measures converter = new Measures(line);
+        String allScripts = "";
+
+        int i = 0;
+        while(i < lines.size()){
+            String eachMeasure = "";
+            int numOfGuitar = 6;
+            int j =0;
+            while(j < numOfGuitar){
+                eachMeasure += lines.get(i)+"\n";
+                i++;
+                j++;
+            }
+            Measures converter = new Measures(eachMeasure);
+            String noteScripts = "";
+            for(String noteScript : converter.getScriptsPerMeasrue()){
+                noteScripts += noteScript;
+            }
+            allScripts += noteScripts;
         }
 
-        System.out.println("Put path with file name to save the file: ");
+        allScripts = NoteUtility.getMXML(allScripts);
+
+        System.out.println("Put path of folder where you want to save file (without file name): ");
+        String filePath = sc.nextLine();
+
+        System.out.println("Put file name that you want to save: ");
         String fileName = sc.nextLine();
 
-        try{
-            BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
+        String outputPathName = filePath + fileName + ".musicxml";
 
-            fw.write(mxml);
+        try{
+            BufferedWriter fw = new BufferedWriter(new FileWriter(outputPathName, true));
+
+            fw.write(allScripts);
             fw.flush();
 
             fw.close();
