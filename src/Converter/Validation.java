@@ -50,8 +50,6 @@ public class Validation {
             return true;
         else if(Pattern.matches("[^[[0-9]*[/\\\\][0-9]*]*]", note))
             return true;
-        else if (Pattern.matches("[xX]", note))
-            return true;
         else
             return false;
         // **need more note regex

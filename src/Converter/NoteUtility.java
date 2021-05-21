@@ -1,6 +1,24 @@
 package Converter;
 
+import java.util.ArrayList;
+
 public class NoteUtility {
+    public static String getMXML(ArrayList<String> scriptsPerMeasure){
+        String allNotesScript = "";
+        for(String s: scriptsPerMeasure){
+            allNotesScript += s;
+        }
+
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n" +
+                "<score-partwise version=\"3.1\">\n" +
+                "<part-list>\n" +
+                "<score-part id=\"P1\">\n" +
+                "<part-name>Classical Guitar</part-name>\n" +
+                "</score-part>\n" +
+                "</part-list>\n" +
+                "<part id=\"P1\">\n" + allNotesScript + "</part>\n" + "</score-partwise>\n";
+    }
     public static String pitch(int octave, String key) {
 
         String octaveString = "<octave>" + octave + "</octave>\n";
