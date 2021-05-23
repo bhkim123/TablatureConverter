@@ -15,4 +15,22 @@ public class IOClass {
         }
         return lines;
     }
+
+    public static boolean isFileStored(String outputPathName, String allScripts) throws IOException {
+
+        try{
+            BufferedWriter fw = new BufferedWriter(new FileWriter(outputPathName, true));
+
+            fw.write(allScripts);
+            fw.flush();
+
+            fw.close();
+        }
+        catch (Exception e){
+            System.out.println("The file was not created. Check path and file name.\n");
+            return false;
+        }
+
+        return true;
+    }
 }

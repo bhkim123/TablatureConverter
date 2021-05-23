@@ -53,24 +53,18 @@ public class Main {
 
         allScripts = NoteUtility.getMXML(allScripts);
 
-        System.out.println("Put path of folder where you want to save file (without file name): ");
-        String filePath = sc.nextLine();
+        boolean isValid = false;
 
-        System.out.println("Put file name that you want to save: ");
-        String fileName = sc.nextLine();
+        while(!isValid){
+            System.out.println("Put file name that you want to save: ");
+            String fileName = sc.nextLine();
 
-        String outputPathName = filePath + fileName + ".musicxml";
+            System.out.println("Put path where you want to save file (without file name)" +
+                    "\n(e.g : C:\\Users\\Desktop\\myFolder) :");
+            String filePath = sc.nextLine();
 
-        try{
-            BufferedWriter fw = new BufferedWriter(new FileWriter(outputPathName, true));
-
-            fw.write(allScripts);
-            fw.flush();
-
-            fw.close();
-        }
-        catch (Exception e){
-            e.printStackTrace();
+            String outputPathName = filePath + "\\" + fileName + ".musicxml";
+            isValid = IOClass.isFileStored(outputPathName, allScripts);
         }
     }
 }
