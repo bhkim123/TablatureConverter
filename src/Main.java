@@ -9,10 +9,17 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Put path of the file to convert: ");
-        String path = sc.nextLine();
-        ArrayList<String> lines = IOClass.textToStr(path);
+        boolean isValidInput = false;
+        ArrayList<String> lines = new ArrayList<>();
+        while(!isValidInput){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Put path of the file to convert: ");
+            String path = sc.nextLine();
+            lines = IOClass.textToStr(path);
+            if(lines != null && !lines.isEmpty()){
+                isValidInput = true;
+            }
+        }
         //Extract string information from text file.
 
         lines = Validation.validLines(lines);
@@ -59,6 +66,7 @@ public class Main {
         boolean isValid = false;
         //To check if the file's saved.
 
+        Scanner sc = new Scanner(System.in);
         while(!isValid){
             System.out.println("Put file name that you want to save: ");
             String fileName = sc.nextLine();

@@ -5,17 +5,23 @@ public class IOClass {
 
     //Text file information to string information to convert.
     public static ArrayList<String> textToStr(String path) throws IOException {
-        File file = new File(path);
-        FileReader fr = new FileReader(file);
-        BufferedReader bufr = new BufferedReader(fr);
-        ArrayList<String> lines = new ArrayList<>();
-        String line = "";
-        while((line = bufr.readLine()) != null){
-            if(line.trim() != null && line.trim().length() > 0){
-                lines.add(line.trim());
+        try{
+            File file = new File(path);
+            FileReader fr = new FileReader(file);
+            BufferedReader bufr = new BufferedReader(fr);
+            ArrayList<String> lines = new ArrayList<>();
+            String line = "";
+            while((line = bufr.readLine()) != null){
+                if(line.trim() != null && line.trim().length() > 0){
+                    lines.add(line.trim());
+                }
             }
+            return lines;
         }
-        return lines;
+        catch (Exception e){
+            System.out.println("The path is wrong or the input file does not exist or input file is empty. Try again.");
+            return null;
+        }
     }
 
     // Check if the path to save file is proper.
