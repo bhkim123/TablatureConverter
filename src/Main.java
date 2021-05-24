@@ -3,11 +3,7 @@ import Converter.Measures;
 import Converter.NoteUtility;
 import Converter.Validation;
 import Exceptions.NotSupportedNoteException;
-import Exceptions.UnvalidNumberOfLinesException;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,7 +13,10 @@ public class Main {
         System.out.println("Put path of the file to convert: ");
         String path = sc.nextLine();
         ArrayList<String> lines = IOClass.textToStr(path);
+        //Extract string information from text file.
+
         lines = Validation.validLines(lines);
+        //Check if there is note form that is not supported.
 
         if(lines.size() !=  0){
             if(!Validation.isValidNotes(lines)){
@@ -29,7 +28,7 @@ public class Main {
                 }
             }
         }
-        //extract only supported string information from text file
+        //Extract only supported string information from text file
 
         String allScripts = "";
 
@@ -43,24 +42,29 @@ public class Main {
                 i++;
                 j++;
             }
+            //Extract each 6 lines to make the whole score
+
             Measures converter = new Measures(eachMeasure);
             String noteScripts = "";
             for(String noteScript : converter.getScriptsPerMeasrue()){
                 noteScripts += noteScript;
             }
             allScripts += noteScripts;
+            //Extract note scripts from each measure and add all.
         }
 
         allScripts = NoteUtility.getMXML(allScripts);
+        // Wrap note scripts with basic xml information.
 
         boolean isValid = false;
+        //To check if the file's saved.
 
         while(!isValid){
             System.out.println("Put file name that you want to save: ");
             String fileName = sc.nextLine();
 
             System.out.println("Put path where you want to save file (without file name)" +
-                    "\n(e.g : C:\\Users\\Desktop\\myFolder) :");
+                    "\n(e.g : C:\\Users\\Desktop\\myFolder ) :");
             String filePath = sc.nextLine();
 
             String outputPathName = filePath + "\\" + fileName + ".musicxml";

@@ -15,6 +15,7 @@ public class Measures {
         this.eachMeasureNotes = new ArrayList<>();
         this.scriptsPerMeasure = new ArrayList<>();
         Measures.measureNum = 1;
+        //Initializing
 
         ArrayList<String> storedLines = splitByLines(this.measureInfo);
         this.lines2Darr = make2Darr(storedLines);
