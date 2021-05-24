@@ -33,6 +33,7 @@ sample
 
 result
 ![image](https://user-images.githubusercontent.com/82852354/119395871-1d771780-bca2-11eb-9311-54dd1401f6a7.png)
+run by MuseScore3
 
 #### *Constraints
 ##### All measures should have the same length.
