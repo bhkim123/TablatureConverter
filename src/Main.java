@@ -6,6 +6,7 @@ import Exceptions.NotSupportedNoteException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -18,6 +19,9 @@ public class Main {
             lines = IOClass.textToStr(path);
             if(lines != null && !lines.isEmpty()){
                 isValidInput = true;
+            }
+            else if(lines != null && lines.isEmpty()){
+                System.out.println("The file is empty. Try again.\n");
             }
         }
         //Extract string information from text file.
@@ -67,6 +71,7 @@ public class Main {
         //To check if the file's saved.
 
         Scanner sc = new Scanner(System.in);
+        System.out.println("Converting's done, successfully.\n");
         while(!isValid){
             System.out.println("Put file name that you want to save: ");
             String fileName = sc.nextLine();
@@ -76,7 +81,9 @@ public class Main {
             String filePath = sc.nextLine();
 
             String outputPathName = filePath + "\\" + fileName + ".musicxml";
-            isValid = IOClass.isFileStored(outputPathName, allScripts);
+            isValid = IOClass.isValid(outputPathName, allScripts);
         }
+
+        System.out.println("Your musicXML file's been saved!");
     }
 }

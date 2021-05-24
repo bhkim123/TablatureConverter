@@ -44,12 +44,15 @@ public class Validation {
     }
 
     public static boolean noteValidation(String note){
-        if(Pattern.matches("[1-2]?[0-9]", note))
+        if(Pattern.matches("[0-9]{1,2}", note)) {
             return true;
-        else if(Pattern.matches("^[[0-9]*[phPH][0-9]*]*", note))
+        }
+        else if(Pattern.matches("^[[0-9]*[phPH][0-9]*]*", note)){
             return true;
-        else if(Pattern.matches("[^[[0-9]*[/\\\\][0-9]*]*]", note))
+        }
+        else if(Pattern.matches("^[[0-9]*[/\\\\][0-9]*]*", note)){
             return true;
+        }
         else
             return false;
         // **need more note regex
